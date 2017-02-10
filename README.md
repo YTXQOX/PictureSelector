@@ -1,8 +1,5 @@
-# PictureSelector  
-最近项目中用到多图选择上传的需求，考虑到android机型众多问题就自己花时间写了一个，测试了大概60款机型，出现过一些问题也都一一修复了，基本上稳定了特分享出来，界面UI也是商用级的开发者不用在做太多修改了，界面高度自定义，可以设置符合你项目主色调的风格，集成完成后就可以拿来用。
-顺便感谢一下，大家对我的支持~  
-
-功能特点：  
+# PictureSelector
+功能特点：
 
 1.适配android7.0系统    
 
@@ -42,50 +39,38 @@
 
 19.新增LuBan多图压缩
 
-项目会一直维护，发现问题欢迎提出~  会第一时间修复哟~   联系方式893855882@qq.com  希望用得着的朋友点个start，你们的支持才是我继续下去的动力，在此先谢过~  
 
-另附我的博客地址：http://blog.csdn.net/luck_mw
+app-build 引入
+compile 'com.github.TEENSTITAN.PictureSelector:picture_library:v1.0.0'  
 
-app-build 引入compile 'com.github.LuckSiege.PictureSelector:picture_library:v1.2.5'  注：之前引入如有报错，请引入最新版本、
 
-项目根目录  
-
-allprojects { 
-
+项目根目录
+allprojects {
     repositories { 
-    
-        jcenter() 
+        jcenter()
         
         maven { url 'https://jitpack.io' } 
-        
-    }  
-    
+    }
 }  
 
 
 注：适配android7.0拍照问题，请在AndroidManifest.xml中添加标签  
-
  < provider 
- 
             android:name="android.support.v4.content.FileProvider"
-            
             android:authorities="${applicationId}.provider"
-            
             android:exported="false"
-            
             android:grantUriPermissions="true">
             
             < meta-data
-            
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                
                 android:resource="@xml/file_paths" />
                 
- </ provider> 
+ </provider>
  
          
-******相册参数构造******
-
+/**
+ * 相册参数构造
+ */
 FunctionConfig config = new FunctionConfig();  
 
 config.setType(selectType); 1图片 or 2视频 LocalMediaLoader.TYPE_IMAGE,TYPE_VIDEO  
@@ -112,19 +97,19 @@ config.setCropH(cropH); 裁剪高
 
 config.setRecordVideoDefinition(Constants.HIGH); // 视频清晰度 Constants.HIGH 清晰 Constants.ORDINARY 普通 低质量  
 
-config.setRecordVideoSecond(60);// 视频秒数  
+config.setRecordVideoSecond(60); // 视频秒数
 
-config.setCheckNumMode(isCheckNumMode); 是否显示QQ选择风格(带数字效果)  
+config.setCheckNumMode(isCheckNumMode); //是否显示QQ选择风格(带数字效果)
 
-config.setPreviewColor 预览文字颜色  
+config.setPreviewColor //预览文字颜色
 
-config.setCompleteColor 完成文字颜色 
+config.setCompleteColor //完成文字颜色
 
-config.setPreviewBottomBgColor 预览界面底部背景色  
+config.setPreviewBottomBgColor //预览界面底部背景色
 
-config.setBottomBgColor 选择图片页面底部背景色  
+config.setBottomBgColor //选择图片页面底部背景色
 
-config.options.setSelectMedia() 已选图片集合  
+config.options.setSelectMedia() //已选图片集合
 
 config.setCompressFlag(compressFlag); // 1是系统自带压缩 2是鲁班压缩
 
@@ -132,58 +117,51 @@ config.setCompressW(compressW); //Luban压缩宽
 
 config.setCompressH(compressH); //Luban压缩高
 
-// 先初始化参数配置，在启动相册  
-
-PictureConfig.init(config);  
-
-// 启动相册并设置回调函数  
-
-PictureConfig.getPictureConfig.openPhoto(MainActivity.this, resultCallback); 
-
-// 外部预览图片方法 (例如选完后要预览的可调用此方法)
-
-PictureConfig.getPictureConfig.externalPicturePreview(this, position, selectMedia);
 
 /**
-  * 图片回调方法
+ * 启动配置
  */
+PictureConfig.init(config);  // 先初始化参数配置，在启动相册
 
+PictureConfig.getPictureConfig.openPhoto(MainActivity.this, resultCallback);  // 启动相册并设置回调函数  
+
+PictureConfig.getPictureConfig.externalPicturePreview(this, position, selectMedia); // 外部预览图片方法 (例如选完后要预览的可调用此方法)
+
+
+/**
+ * 图片回调方法
+ */
 private PictureConfig.OnSelectResultCallback resultCallback = new PictureConfig.OnSelectResultCallback() {  
 
     @Override
-    
-    public void onSelectSuccess(List< LocalMedia> resultList) {  
+    public void onSelectSuccess(List< LocalMedia> resultList) {
             if (media.isCompressed()){  
-            // 注意：如果压缩过，在上传的时候，取 media.getCompressPath(); // 压缩图compressPath  
+                // 注意：如果压缩过，在上传的时候，取 media.getCompressPath(); // 压缩图compressPath
             } else {  
-            // 注意：没有压缩过，在上传的时候，取 media.getPath(); // 原图path  
-            } else{
-            
-            // 注意：如果media.getCatPath();不为空的话 就代表裁剪的图片，上传时可取，但是如果又压缩过，则取最终压缩过的compressPath  
-            
+                // 注意：没有压缩过，在上传的时候，取 media.getPath(); // 原图path
+            } else {
+                // 注意：如果media.getCatPath();不为空的话 就代表裁剪的图片，上传时可取，但是如果又压缩过，则取最终压缩过的compressPath
             }
             
             selectMedia = resultList;  
-            
-            if (selectMedia != null) {  
-            
-                adapter.setList(selectMedia);  
-                
-                adapter.notifyDataSetChanged();  
-                
-            }  
+            if (selectMedia != null) {
+                adapter.setList(selectMedia);
+                adapter.notifyDataSetChanged();
+            }
         }  
   };  
   
-  
-![image](https://github.com/LuckSiege/PictureSelector/blob/master/image/A574F86A9A9F42A77D03B0ACC9E761C9.jpg)
-![image](https://github.com/LuckSiege/PictureSelector/blob/master/image/ABE302D298BD56DEC871F4464E64646F.jpg)
-![image](https://github.com/LuckSiege/PictureSelector/blob/master/image/3483AB11C78AF4C6DCC408504768A138.jpg)
-![image](https://github.com/LuckSiege/PictureSelector/blob/master/image/66C119A6BD918EAF9418324836C34BA6.jpg)
-![image](https://github.com/LuckSiege/PictureSelector/blob/master/image/new_image.jpg)
-![image](https://github.com/LuckSiege/PictureSelector/blob/master/image/5F1513BFD9490AF153E3E30840964FB1.jpg)
-![image](https://github.com/LuckSiege/PictureSelector/blob/master/image/BA7C4A038613182020DA9CE0152DA5D4.jpg)
-![image](https://github.com/LuckSiege/PictureSelector/blob/master/image/0F918EB15954836F59A95A3F7E0D2012.jpg)
-![image](https://github.com/LuckSiege/PictureSelector/blob/master/image/2AEDE4E52CC095F5896E066C59DDDF85.jpg)
-![image](https://github.com/LuckSiege/PictureSelector/blob/master/image/36C818DEDF2A5AA745CD699FBBF67E7F.jpg)
-![image](https://github.com/LuckSiege/PictureSelector/blob/master/image/9B433C9C47C3FCA7BC42D6E3B6F27698.jpg)
+
+
+
+![image](https://github.com/TEENSTITAN/PictureSelector/blob/master/image/A574F86A9A9F42A77D03B0ACC9E761C9.jpg)
+![image](https://github.com/TEENSTITAN/PictureSelector/blob/master/image/ABE302D298BD56DEC871F4464E64646F.jpg)
+![image](https://github.com/TEENSTITAN/PictureSelector/blob/master/image/3483AB11C78AF4C6DCC408504768A138.jpg)
+![image](https://github.com/TEENSTITAN/PictureSelector/blob/master/image/66C119A6BD918EAF9418324836C34BA6.jpg)
+![image](https://github.com/TEENSTITAN/PictureSelector/blob/master/image/new_image.jpg)
+![image](https://github.com/TEENSTITAN/PictureSelector/blob/master/image/5F1513BFD9490AF153E3E30840964FB1.jpg)
+![image](https://github.com/TEENSTITAN/PictureSelector/blob/master/image/BA7C4A038613182020DA9CE0152DA5D4.jpg)
+![image](https://github.com/TEENSTITAN/PictureSelector/blob/master/image/0F918EB15954836F59A95A3F7E0D2012.jpg)
+![image](https://github.com/TEENSTITAN/PictureSelector/blob/master/image/2AEDE4E52CC095F5896E066C59DDDF85.jpg)
+![image](https://github.com/TEENSTITAN/PictureSelector/blob/master/image/36C818DEDF2A5AA745CD699FBBF67E7F.jpg)
+![image](https://github.com/TEENSTITAN/PictureSelector/blob/master/image/9B433C9C47C3FCA7BC42D6E3B6F27698.jpg)
