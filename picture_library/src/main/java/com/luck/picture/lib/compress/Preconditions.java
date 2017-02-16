@@ -15,12 +15,6 @@ package com.luck.picture.lib.compress;
 
 import android.support.annotation.Nullable;
 
-/**
- * author：luck
- * project：PictureSelector
- * email：893855882@qq.com
- * data：16/12/31
- */
 final class Preconditions {
 
     /**

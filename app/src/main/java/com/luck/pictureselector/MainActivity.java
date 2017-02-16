@@ -22,13 +22,6 @@ import com.yalantis.ucrop.entity.LocalMedia;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * author：luck
- * project：PictureSelector
- * package：com.luck.picture.ui
- * email：邮箱->893855882@qq.com
- * data：16/12/31
- */
 
 public class MainActivity extends Activity implements RadioGroup.OnCheckedChangeListener {
 
@@ -36,7 +29,7 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     private GridImageAdapter adapter;
     private RadioGroup rgbs01, rgbs0, rgbs1, rgbs2, rgbs3, rgbs4, rgbs5, rgbs6, rgbs7, rgbs8, rgbs9, rgbs10;
     private int selectMode = FunctionConfig.MODE_MULTIPLE;
-    private int maxSelectNum = 9;// 图片最大可选数量
+    private int maxSelectNum = 15;// 图片最大可选数量
     private ImageButton minus, plus;
     private EditText select_num;
     private EditText et_w, et_h, et_compress_width, et_compress_height;

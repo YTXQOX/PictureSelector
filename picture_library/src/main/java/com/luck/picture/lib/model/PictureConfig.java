@@ -14,13 +14,6 @@ import java.io.Serializable;
 import java.util.List;
 
 
-/**
- * author：luck
- * project：PictureSelector
- * package：com.luck.picture.util
- * email：893855882@qq.com
- * data：17/1/5
- */
 public class PictureConfig {
 
     public static FunctionConfig config;

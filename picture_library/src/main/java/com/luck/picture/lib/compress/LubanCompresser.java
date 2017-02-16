@@ -20,12 +20,6 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.luck.picture.lib.compress.Preconditions.checkNotNull;
 
-/**
- * author：luck
- * project：PictureSelector
- * email：893855882@qq.com
- * data：16/12/31
- */
 
 class LubanCompresser {
 

@@ -34,12 +34,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * author：luck
- * project：PictureSelector
- * email：893855882@qq.com
- * data：16/12/31
- */
 
 public class Luban {
 

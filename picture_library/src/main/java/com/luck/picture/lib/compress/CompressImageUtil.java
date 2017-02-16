@@ -13,12 +13,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-/**
- * author：luck
- * project：PictureSelector
- * email：893855882@qq.com
- * data：16/12/31
- */
 
 public class CompressImageUtil{
 	private CompressConfig config;

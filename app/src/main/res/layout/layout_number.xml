@@ -21,7 +21,7 @@
         android:focusable="false"
         android:gravity="center"
         android:inputType="number"
-        android:text="9" />
+        android:text="15" />
 
     <ImageButton
         android:id="@+id/plus"

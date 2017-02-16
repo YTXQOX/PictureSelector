@@ -1,7 +1,5 @@
 apply plugin: 'com.android.library'
 
-group='com.github.TEENSTITAN'
-
 android {
     compileSdkVersion 23
     buildToolsVersion '23.0.3'

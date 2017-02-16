@@ -5,13 +5,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-/**
- * author：luck
- * project：PreviewViewPager
- * package：com.luck.picture.ui
- * email：893855882@qq.com
- * data：16/12/31
- */
 
 public class PreviewViewPager extends ViewPager {
 

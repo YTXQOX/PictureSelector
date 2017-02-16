@@ -19,13 +19,7 @@ import com.yalantis.ucrop.entity.LocalMedia;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * author：luck
- * project：PictureSelector
- * package：com.luck.picture.ui
- * email：邮箱->893855882@qq.com
- * data：17/01/18
- */
+
 public class PictureExternalPreviewActivity extends FragmentActivity {
     private ImageButton left_back;
     private TextView tv_title;

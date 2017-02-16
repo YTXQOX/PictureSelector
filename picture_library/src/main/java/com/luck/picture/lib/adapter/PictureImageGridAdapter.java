@@ -23,9 +23,7 @@ import com.yalantis.ucrop.entity.LocalMedia;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by dee on 15/11/19.
- */
+
 public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static final int TYPE_CAMERA = 1;
     public static final int TYPE_PICTURE = 2;
@@ -142,6 +140,7 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
 
                 contentHolder.rl_duration.setVisibility(View.GONE);
             }
+
             if (enablePreview || enablePreviewVideo) {
                 contentHolder.ll_check.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -150,6 +149,7 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
                     }
                 });
             }
+
             contentHolder.contentView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -229,14 +229,14 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
      * @param contentHolder
      * @param image
      */
-
     private void changeCheckboxState(ViewHolder contentHolder, LocalMedia image) {
         boolean isChecked = contentHolder.check.isSelected();
 
         if (selectImages.size() >= maxSelectNum && !isChecked) {
-            Toast.makeText(context, context.getString(R.string.message_max_num, maxSelectNum), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, context.getString(R.string.message_max_num, String.valueOf(maxSelectNum)), Toast.LENGTH_SHORT).show();
             return;
         }
+
         if (isChecked) {
             for (LocalMedia media : selectImages) {
                 if (media.getPath().equals(image.getPath())) {
@@ -249,6 +249,7 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
             selectImages.add(image);
             image.setNum(selectImages.size());
         }
+
         //通知点击项发生了改变
         notifyItemRangeChanged(contentHolder.getAdapterPosition(), images.size());
         selectImage(contentHolder, !isChecked, true);
@@ -287,7 +288,6 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
         void onTakePhoto();
 
         void onChange(List<LocalMedia> selectImages);
-
 
         void onPictureClick(LocalMedia media, int position);
     }

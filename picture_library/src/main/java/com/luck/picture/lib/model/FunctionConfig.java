@@ -8,13 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * author：luck
- * project：PictureSelector
- * package：com.luck.picture.lib.model
- * email：893855882@qq.com
- * data：17/1/16
- */
+
 public class FunctionConfig implements Serializable {
 
     // 裁剪模式

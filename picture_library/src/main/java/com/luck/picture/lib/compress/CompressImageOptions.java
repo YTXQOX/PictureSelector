@@ -8,12 +8,7 @@ import com.yalantis.ucrop.entity.LocalMedia;
 import java.io.File;
 import java.util.List;
 
-/**
- * author：luck
- * project：PictureSelector
- * email：893855882@qq.com
- * data：16/12/31
- */
+
 public class CompressImageOptions implements CompressInterface {
     private CompressImageUtil compressImageUtil;
     private List<LocalMedia> images;

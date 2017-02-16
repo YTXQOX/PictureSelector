@@ -20,7 +20,7 @@
             android:layout_centerVertical="true"
             android:background="@color/transparent"
             android:src="@mipmap/back"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -48,13 +48,11 @@
             android:textSize="15sp" />
     </RelativeLayout>
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_margin="6dp"
         android:overScrollMode="never" />
 
     <ScrollView

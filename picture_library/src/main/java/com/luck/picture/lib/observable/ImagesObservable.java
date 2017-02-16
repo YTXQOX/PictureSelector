@@ -6,13 +6,7 @@ import com.yalantis.ucrop.entity.LocalMediaFolder;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * author：luck
- * project：PictureSelector
- * package：com.luck.picture.lib.observable
- * email：893855882@qq.com
- * data：17/1/11
- */
+
 public class ImagesObservable implements SubjectListener {
     //观察者接口集合
     private List<ObserverListener> observers = new ArrayList<>();

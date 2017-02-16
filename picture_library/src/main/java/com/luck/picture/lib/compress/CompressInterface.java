@@ -4,12 +4,6 @@ import com.yalantis.ucrop.entity.LocalMedia;
 
 import java.util.List;
 
-/**
- * author：luck
- * project：PictureSelector
- * email：893855882@qq.com
- * data：16/12/31
- */
 
 public interface CompressInterface {
     void compress();

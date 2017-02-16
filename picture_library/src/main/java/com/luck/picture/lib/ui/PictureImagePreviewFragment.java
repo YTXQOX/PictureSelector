@@ -21,13 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
-/**
- * author：luck
- * project：PictureSelector
- * package：com.luck.picture.ui
- * email：邮箱->893855882@qq.com
- * data：17/01/18
- */
+
 public class PictureImagePreviewFragment extends Fragment {
     public static final String PATH = "path";
     private List<LocalMedia> selectImages = new ArrayList<>();

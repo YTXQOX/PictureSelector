@@ -14,14 +14,15 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.luck.picture.lib.R;
 import com.luck.picture.lib.adapter.PictureImageGridAdapter;
@@ -49,14 +50,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * author：luck
- * project：PictureSelector
- * package：com.luck.picture.ui
- * email：893855882@qq.com
- * data：16/12/31
- */
+
 public class PictureImageGridActivity extends PictureBaseActivity implements View.OnClickListener, PictureImageGridAdapter.OnPhotoSelectChangedListener {
+
     public final String TAG = PictureImageGridActivity.class.getSimpleName();
     private List<LocalMedia> images = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -65,7 +61,7 @@ public class PictureImageGridActivity extends PictureBaseActivity implements Vie
     private RelativeLayout rl_bottom;
     private ImageButton picture_left_back;
     private RelativeLayout rl_picture_title;
-    private TextView picture_tv_title, picture_tv_right;
+    private TextView picture_tv_title, picture_tv_right, picture_tv_select_all;
 
     private TextView id_preview;
     private PictureImageGridAdapter adapter;
@@ -73,6 +69,8 @@ public class PictureImageGridActivity extends PictureBaseActivity implements Vie
     private SweetAlertDialog dialog;
     private List<LocalMediaFolder> folders = new ArrayList<>();
     private boolean is_top_activity;
+    private boolean isSelectAll = false;
+
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -94,7 +92,6 @@ public class PictureImageGridActivity extends PictureBaseActivity implements Vie
         }
     };
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +103,7 @@ public class PictureImageGridActivity extends PictureBaseActivity implements Vie
         rl_picture_title = (RelativeLayout) findViewById(R.id.rl_picture_title);
         picture_tv_title = (TextView) findViewById(R.id.picture_tv_title);
         picture_tv_right = (TextView) findViewById(R.id.picture_tv_right);
+        picture_tv_select_all = (TextView) findViewById(R.id.picture_tv_select_all);
         rl_picture_title.setBackgroundColor(backgroundColor);
         ToolbarUtil.setColorNoTranslucent(this, backgroundColor);
         tv_ok = (TextView) findViewById(R.id.tv_ok);
@@ -117,6 +115,8 @@ public class PictureImageGridActivity extends PictureBaseActivity implements Vie
         tv_ok.setOnClickListener(this);
         picture_left_back.setOnClickListener(this);
         picture_tv_right.setOnClickListener(this);
+        picture_tv_select_all.setOnClickListener(this);
+
         is_top_activity = getIntent().getBooleanExtra(FunctionConfig.EXTRA_IS_TOP_ACTIVITY, false);
         if (!is_top_activity) {
             // 第一次启动ImageActivity，没有获取过相册列表
@@ -129,6 +129,7 @@ public class PictureImageGridActivity extends PictureBaseActivity implements Vie
         } else {
             selectMedias = (List<LocalMedia>) getIntent().getSerializableExtra(FunctionConfig.EXTRA_PREVIEW_SELECT_LIST);
         }
+
         String folderName = getIntent().getStringExtra(FunctionConfig.FOLDER_NAME);
         folders = ImagesObservable.getInstance().readLocalFolders();
         if (folders == null) {
@@ -147,6 +148,7 @@ public class PictureImageGridActivity extends PictureBaseActivity implements Vie
         if (selectMedias == null) {
             selectMedias = new ArrayList<>();
         }
+
         if (enablePreview && selectMode == FunctionConfig.MODE_MULTIPLE) {
             if (type == LocalMediaLoader.TYPE_VIDEO) {
                 // 如果是视频不能预览
@@ -159,6 +161,7 @@ public class PictureImageGridActivity extends PictureBaseActivity implements Vie
         } else {
             id_preview.setVisibility(View.GONE);
         }
+
         if (folderName != null && !folderName.equals("")) {
             picture_tv_title.setText(folderName);
         } else {
@@ -171,10 +174,12 @@ public class PictureImageGridActivity extends PictureBaseActivity implements Vie
                     break;
             }
         }
+
         rl_bottom.setBackgroundColor(bottomBgColor);
         id_preview.setTextColor(previewColor);
         tv_ok.setTextColor(completeColor);
         picture_tv_right.setText(getString(R.string.cancel));
+        picture_tv_select_all.setText(getString(R.string.select_all));
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, ScreenUtils.dip2px(this, 2), false));
         recyclerView.setLayoutManager(new GridLayoutManager(this, spanCount));
@@ -193,6 +198,7 @@ public class PictureImageGridActivity extends PictureBaseActivity implements Vie
                 showCamera = false;
             }
         }
+
         adapter = new PictureImageGridAdapter(this, showCamera, maxSelectNum, selectMode, enablePreview, enablePreviewVideo, cb_drawable, is_checked_num);
         recyclerView.setAdapter(adapter);
         if (selectMedias.size() > 0) {
@@ -237,10 +243,31 @@ public class PictureImageGridActivity extends PictureBaseActivity implements Vie
             activityFinish(1);
         } else if (id == R.id.picture_tv_right) {
             activityFinish(2);
+        } else if (id == R.id.picture_tv_select_all) { // 全选
+            if (images.size() + selectMedias.size() >= maxSelectNum) {
+                Toast.makeText(PictureImageGridActivity.this, this.getString(R.string.message_max_num, String.valueOf(maxSelectNum)), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Log.i("selectMedias.size()-->", selectMedias.size() + "");
+            if (selectMedias.size() > 0) {
+                for (int i = 0; i < selectMedias.size(); i++) {
+                    for (LocalMedia localMedia1 : images) {
+                        if (selectMedias.get(i).getPath().equals(localMedia1.getPath())) {
+                            selectMedias.remove(selectMedias.get(i));
+                        }
+                    }
+                }
+            }
+            selectMedias.addAll(images);
+
+            ChangeImageNumber(selectMedias);
+            adapter.bindSelectImages(selectMedias);
         } else if (id == R.id.id_preview) {
             if (Utils.isFastDoubleClick()) {
                 return;
             }
+
             List<LocalMedia> selectedImages = adapter.getSelectedImages();
             List<LocalMedia> medias = new ArrayList<>();
             for (LocalMedia media : selectedImages) {

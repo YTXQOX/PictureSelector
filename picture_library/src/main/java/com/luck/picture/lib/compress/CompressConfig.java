@@ -2,12 +2,6 @@ package com.luck.picture.lib.compress;
 
 import java.io.Serializable;
 
-/**
- * author：luck
- * project：PictureSelector
- * email：893855882@qq.com
- * data：16/12/31
- */
 
 public class CompressConfig implements Serializable {
 

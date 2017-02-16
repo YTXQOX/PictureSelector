@@ -4,12 +4,6 @@ import android.graphics.Bitmap;
 
 import java.io.File;
 
-/**
- * author：luck
- * project：PictureSelector
- * email：893855882@qq.com
- * data：16/12/31
- */
 
 public class LubanBuilder {
 

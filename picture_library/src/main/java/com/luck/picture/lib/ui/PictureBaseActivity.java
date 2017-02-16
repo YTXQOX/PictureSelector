@@ -20,13 +20,7 @@ import com.yalantis.ucrop.entity.LocalMedia;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * author：luck
- * project：PictureSelector
- * package：com.luck.picture.ui
- * email：893855882@qq.com
- * data：16/12/31
- */
+
 public class PictureBaseActivity extends FragmentActivity {
     protected Context mContext;
     protected int type = 0;
@@ -58,6 +52,7 @@ public class PictureBaseActivity extends FragmentActivity {
     protected int mScreenHeight = 1280;
     protected int compressW;
     protected int compressH;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -7,6 +7,8 @@
     <string name="photo">Photo</string>
     <string name="all_photo">All Albums</string>
     <string name="cancel">Cancel</string>
+    <string name="select_all">Select All</string>
+    <string name="select_null">Select Null</string>
     <string name="picture">Picture</string>
     <string name="take_picture">Shot</string>
     <string name="preview">Preview</string>
