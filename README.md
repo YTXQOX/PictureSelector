@@ -42,15 +42,15 @@
 
 
 
-1. build.gradle
+## 1. build.gradle
 
 compile 'com.github.TEENSTITAN.PictureSelector:picture_library:v1.0.0'  
 
 
 
 
-2. root project
-
+## 2. root project
+```java
 allprojects {
     repositories { 
         jcenter()
@@ -58,13 +58,14 @@ allprojects {
         maven { url 'https://jitpack.io' } 
     }
 }  
-
+```
 
 
 
 
 注：适配android7.0拍照问题，请在AndroidManifest.xml中添加标签  
 
+```java
  < provider 
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -75,11 +76,11 @@ allprojects {
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />              
  </provider>
- 
+ ```
          
-/**
+
  * 相册参数构造
- */
+ 
 FunctionConfig config = new FunctionConfig();  
 
 config.setType(selectType); 1图片 or 2视频 LocalMediaLoader.TYPE_IMAGE,TYPE_VIDEO  
@@ -127,19 +128,20 @@ config.setCompressW(compressW); //Luban压缩宽
 config.setCompressH(compressH); //Luban压缩高
 
 
-/**
- * 启动配置
- */
+
+ ### 启动配置
+```java
 PictureConfig.init(config);  // 先初始化参数配置，在启动相册
 
 PictureConfig.getPictureConfig.openPhoto(MainActivity.this, resultCallback);  // 启动相册并设置回调函数  
 
 PictureConfig.getPictureConfig.externalPicturePreview(this, position, selectMedia); // 外部预览图片方法 (例如选完后要预览的可调用此方法)
+```
 
 
-/**
- * 图片回调方法
- */
+### 图片回调方法
+
+```java
 private PictureConfig.OnSelectResultCallback resultCallback = new PictureConfig.OnSelectResultCallback() {  
 
     @Override
@@ -159,9 +161,10 @@ private PictureConfig.OnSelectResultCallback resultCallback = new PictureConfig.
             }
         }  
   };  
-  
+```  
 
 
+### preview screenshot
 
 ![image](https://github.com/TEENSTITAN/PictureSelector/blob/master/image/A574F86A9A9F42A77D03B0ACC9E761C9.jpg)
 ![image](https://github.com/TEENSTITAN/PictureSelector/blob/master/image/ABE302D298BD56DEC871F4464E64646F.jpg)
