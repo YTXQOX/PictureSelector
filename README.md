@@ -44,7 +44,7 @@
 
 ## 1. build.gradle
 
-compile 'com.github.TEENSTITAN.PictureSelector:picture_library:v1.0.0'  
+compile 'com.github.TEENSTITAN.PictureSelector:picture_library:v1.0.6'  
 
 
 
